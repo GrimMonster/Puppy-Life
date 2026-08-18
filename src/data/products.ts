@@ -1,11 +1,11 @@
 import { Product } from '../types';
 
 import kadiImage from '../assets/images/kadi_cat_litter_pkg_1787016874124.jpg';
-import pazinha1 from '../assets/images/pazinha/pazinha_1.webp';
-import pazinha2 from '../assets/images/pazinha/pazinha_2.webp';
-import pazinha3 from '../assets/images/pazinha/pazinha_3.webp';
-import pazinha4 from '../assets/images/pazinha/pazinha_4.webp';
-import pazinha5 from '../assets/images/pazinha/pazinha_5.webp';
+import pazinha1 from '../assets/images/pazinha/D_NQ_NP_2X_801529-MLA108325430344_032026-F.webp';
+import pazinha2 from '../assets/images/pazinha/D_NQ_NP_2X_648943-MLA109117326329_032026-F.webp';
+import pazinha3 from '../assets/images/pazinha/D_NQ_NP_2X_983145-MLA109116822355_032026-F.webp';
+import pazinha4 from '../assets/images/pazinha/D_Q_NP_815277-MLA109117001373_032026-R.webp';
+import pazinha5 from '../assets/images/pazinha/D_Q_NP_822347-MLA109117266079_032026-R.webp';
 import quatreeImage from '../assets/images/quatree_cat_food_1787016889656.jpg';
 import formulaNaturalImage from '../assets/images/formula_natural_dog_1787016901989.jpg';
 
