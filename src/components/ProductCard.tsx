@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'motion/react';
-import { ShoppingBag, Star, ExternalLink, ShieldCheck } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ShoppingBag, Star, ExternalLink, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Product } from '../types';
 
 interface ProductCardProps {
@@ -10,6 +10,27 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, index }: ProductCardProps) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = product.images && product.images.length > 0 ? product.images : [product.imageUrl];
+
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleSelectDot = (e: React.MouseEvent, idx: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex(idx);
+  };
+
   return (
     <motion.article
       id={`product-card-${product.id}`}
@@ -24,36 +45,84 @@ export function ProductCard({ product, index }: ProductCardProps) {
       className="group bg-white border border-[#E8D5C4] rounded-2xl sm:rounded-3xl p-3 sm:p-4 flex flex-col items-center text-center shadow-xs hover:shadow-lg hover:border-[#FF8C61]/50 hover:-translate-y-1 transition-all duration-300 justify-between h-full relative"
     >
       <div className="w-full flex flex-col items-center">
-        {/* Image Container with Link */}
-        <a
-          href={product.affiliateUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full aspect-square bg-[#FDFBF7] rounded-xl sm:rounded-2xl mb-2.5 flex items-center justify-center relative overflow-hidden border border-[#E8D5C4]/30 block group-hover:border-[#FF8C61]/40 transition-colors"
-          title={`Ver ${product.title}`}
-        >
-          <img
-            src={product.imageUrl}
-            alt={product.title}
-            className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-500"
-            referrerPolicy="no-referrer"
-            loading="lazy"
-          />
+        {/* Image Container with Link & Multi-Image Gallery */}
+        <div className="w-full aspect-square bg-[#FDFBF7] rounded-xl sm:rounded-2xl mb-2.5 flex items-center justify-center relative overflow-hidden border border-[#E8D5C4]/30 group/img">
+          <a
+            href={product.affiliateUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full h-full block"
+            title={`Ver ${product.title}`}
+          >
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={currentImageIndex}
+                src={images[currentImageIndex]}
+                alt={`${product.title} - Foto ${currentImageIndex + 1}`}
+                initial={{ opacity: 0.7 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0.7 }}
+                transition={{ duration: 0.2 }}
+                className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-500"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+            </AnimatePresence>
+          </a>
+
+          {/* Gallery Arrows (shown if more than 1 image) */}
+          {images.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={handlePrevImage}
+                aria-label="Imagem anterior"
+                className="absolute left-1.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/85 hover:bg-white text-[#2D2D2D] shadow-xs flex items-center justify-center transition-all opacity-80 sm:opacity-0 group-hover/img:opacity-100 active:scale-90 z-10"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={handleNextImage}
+                aria-label="Próxima imagem"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/85 hover:bg-white text-[#2D2D2D] shadow-xs flex items-center justify-center transition-all opacity-80 sm:opacity-0 group-hover/img:opacity-100 active:scale-90 z-10"
+              >
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+
+              {/* Dot Indicators */}
+              <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-black/40 backdrop-blur-xs px-2 py-0.5 rounded-full z-10">
+                {images.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={(e) => handleSelectDot(e, idx)}
+                    aria-label={`Ir para foto ${idx + 1}`}
+                    className={`h-1.5 rounded-full transition-all ${
+                      idx === currentImageIndex 
+                        ? 'w-3.5 bg-white' 
+                        : 'w-1.5 bg-white/50 hover:bg-white/80'
+                    }`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
 
           {/* Discount Badge */}
           {product.discountPercentage && (
-            <div className="absolute top-2 right-2 bg-[#FF8C61] text-white font-extrabold text-[9px] sm:text-[10px] px-2 py-0.5 rounded-full shadow-xs">
+            <div className="absolute top-2 right-2 bg-[#FF8C61] text-white font-extrabold text-[9px] sm:text-[10px] px-2 py-0.5 rounded-full shadow-xs pointer-events-none z-10">
               -{product.discountPercentage}%
             </div>
           )}
 
           {/* Viral Tag */}
           {product.badge && (
-            <div className="absolute bottom-2 left-2 bg-white/90 backdrop-blur-xs text-[9px] sm:text-[10px] font-bold text-[#6E4F3A] px-2 py-0.5 rounded-md border border-[#E8D5C4]/60 shadow-2xs">
+            <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-xs text-[9px] sm:text-[10px] font-bold text-[#6E4F3A] px-2 py-0.5 rounded-md border border-[#E8D5C4]/60 shadow-2xs pointer-events-none z-10">
               {product.badge.split(' ')[0]}
             </div>
           )}
-        </a>
+        </div>
 
         {/* Rating and Official Tag */}
         <div className="flex items-center justify-between w-full px-1 text-[10px] sm:text-xs text-[#8C847B] font-semibold mb-1">

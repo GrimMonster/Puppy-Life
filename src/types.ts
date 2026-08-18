@@ -17,6 +17,7 @@ export interface Product {
   originalPrice?: string;
   discountPercentage?: number;
   imageUrl: string;
+  images?: string[];
   affiliateUrl: string;
   category: ProductCategory;
   petType: PetType;
