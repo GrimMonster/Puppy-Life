@@ -16,7 +16,7 @@ export function SearchBar({ searchQuery, onSearchChange }: SearchBarProps) {
           type="text"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Buscar achados (ex: pazinha, areia kadi, bebedouro inox, cama nuvem)..."
+          placeholder="Buscar achados (ex: areia kadi, pazinha inox, ração quatree, fórmula natural)..."
           className="w-full bg-white pl-10 pr-10 py-3 rounded-2xl border border-[#E8D5C4] text-xs sm:text-sm text-[#2D2D2D] placeholder-[#9C948B] shadow-xs focus:outline-none focus:border-[#FF8C61] focus:ring-2 focus:ring-[#FF8C61]/20 transition-all"
         />
         {searchQuery && (

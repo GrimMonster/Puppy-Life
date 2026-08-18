@@ -10,10 +10,7 @@ interface CategoryFilterProps {
 const categories: { id: ProductCategory; label: string; icon: string }[] = [
   { id: 'all', label: 'Todos os Achados', icon: '✨' },
   { id: 'higiene', label: 'Higiene & Areia', icon: '🛁' },
-  { id: 'alimentacao', label: 'Alimentação & Bebedouros', icon: '🥣' },
-  { id: 'conforto', label: 'Camas & Conforto', icon: '☁️' },
-  { id: 'brinquedos', label: 'Brinquedos', icon: '🤖' },
-  { id: 'passeio', label: 'Passeio', icon: '🦮' },
+  { id: 'alimentacao', label: 'Alimentação & Rações', icon: '🥣' },
 ];
 
 export function CategoryFilter({
