@@ -1,5 +1,14 @@
 import { Product } from '../types';
 
+import kadiImage from '../assets/images/kadi_cat_litter_pkg_1787016874124.jpg';
+import pazinha1 from '../assets/images/pazinha/pazinha_1.webp';
+import pazinha2 from '../assets/images/pazinha/pazinha_2.webp';
+import pazinha3 from '../assets/images/pazinha/pazinha_3.webp';
+import pazinha4 from '../assets/images/pazinha/pazinha_4.webp';
+import pazinha5 from '../assets/images/pazinha/pazinha_5.webp';
+import quatreeImage from '../assets/images/quatree_cat_food_1787016889656.jpg';
+import formulaNaturalImage from '../assets/images/formula_natural_dog_1787016901989.jpg';
+
 /**
  * 🌟 PRODUTO HERÓI (DESTAQUE PRINCIPAL)
  * Link oficial Areia Kadi fornecido: https://meli.la/26DLQMB
@@ -12,7 +21,7 @@ export const heroProduct: Product = {
   price: '37,90',
   originalPrice: '49,90',
   discountPercentage: 24,
-  imageUrl: '/src/assets/images/kadi_cat_litter_pkg_1787016874124.jpg',
+  imageUrl: kadiImage,
   affiliateUrl: 'https://www.mercadolivre.com.br/areia-sanitaria-kadi-4kg-graos-finos-biodegradavel-gatos-aquela-areia-que-vira-torroes/p/MLB44443088?pdp_filters=item_id%3AMLB7086892450&matt_tool=38524122&ua=70I8AFiBl7LqdPoBXKn46tf0SAohGkwvRUqQNd47ZMqYAKY#origin=share&sid=share&wid=MLB7086892450&action=copy',
   category: 'higiene',
   petType: 'cat',
@@ -41,13 +50,13 @@ export const products: Product[] = [
     price: '42,90',
     originalPrice: '59,90',
     discountPercentage: 28,
-    imageUrl: '/src/assets/images/pazinha/pazinha_1.webp',
+    imageUrl: pazinha1,
     images: [
-      '/src/assets/images/pazinha/pazinha_1.webp',
-      '/src/assets/images/pazinha/pazinha_2.webp',
-      '/src/assets/images/pazinha/pazinha_3.webp',
-      '/src/assets/images/pazinha/pazinha_4.webp',
-      '/src/assets/images/pazinha/pazinha_5.webp',
+      pazinha1,
+      pazinha2,
+      pazinha3,
+      pazinha4,
+      pazinha5,
     ],
     affiliateUrl: 'https://www.mercadolivre.com.br/pazinha-higienica-coletora-pa-caixa-areia-gatos-inox-peneira-prateado-boa-dica/p/MLB66492672?pdp_filters=item_id%3AMLB4902770957&matt_tool=38524122&ua=2iWkjmVOL7JQ9vUsQLsn9mKFwB8dtrRM_-WKx7kBgwBSsm4#origin=share&sid=share&wid=MLB4902770957&action=copy',
     category: 'higiene',
@@ -66,7 +75,7 @@ export const products: Product[] = [
     price: '179,90',
     originalPrice: '219,90',
     discountPercentage: 18,
-    imageUrl: '/src/assets/images/quatree_cat_food_1787016889656.jpg',
+    imageUrl: quatreeImage,
     affiliateUrl: 'https://www.mercadolivre.com.br/racao-quatree-life-gatos-ad-salmao-101kg-sem-transgenicos/p/MLB25336599?pdp_filters=item_id%3AMLB7085920124&matt_tool=38524122&ua=rhcjcqAAZMpqjmaVtaL4CelualSmAkE5HQB8ol_uF7LSQfs#origin=share&sid=share&wid=MLB7085920124&action=copy',
     category: 'alimentacao',
     petType: 'cat',
@@ -84,7 +93,7 @@ export const products: Product[] = [
     price: '89,90',
     originalPrice: '119,90',
     discountPercentage: 25,
-    imageUrl: '/src/assets/images/formula_natural_dog_1787016901989.jpg',
+    imageUrl: formulaNaturalImage,
     affiliateUrl: 'https://www.mercadolivre.com.br/formula-natural-fresh-meat-caes-adultos-mini-e-pequeno-25kg/p/MLB22501499?pdp_filters=item_id%3AMLB7125556160&matt_tool=38524122&ua=tASi04jEWK1p0ytmhG65fl-OqnknqDMB7uPwB7mTX5dafhw#origin=share&sid=share&wid=MLB7125556160&action=copy',
     category: 'alimentacao',
     petType: 'dog',
