@@ -58,45 +58,47 @@ export default function App() {
   }, [searchQuery, selectedCategory, selectedPetType]);
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[#FDFBF7] font-sans selection:bg-[#FF8C61]/25 selection:text-[#FF8C61] relative p-0 sm:py-6">
-      {/* Phone Mockup Canvas Wrapper from Vibrant Palette */}
-      <main className="w-full max-w-[440px] min-h-screen sm:min-h-[820px] bg-white rounded-none sm:rounded-[40px] shadow-none sm:shadow-2xl sm:border-[8px] border-white overflow-hidden flex flex-col relative justify-between">
-        
-        {/* Top Sticky Header on scroll */}
-        <StickyHeader onShareClick={() => setIsShareModalOpen(true)} />
+    <div className="min-h-screen w-full bg-[#FDFBF7] font-sans selection:bg-[#FF8C61]/25 selection:text-[#FF8C61]">
+      {/* Top Sticky Floating Header on scroll */}
+      <StickyHeader onShareClick={() => setIsShareModalOpen(true)} />
 
+      {/* Main Responsive Canvas Container */}
+      <main className="w-full max-w-6xl mx-auto px-3.5 sm:px-6 lg:px-8 py-3 sm:py-6 flex flex-col justify-between min-h-screen">
         <div className="flex-1 flex flex-col">
+          
           {/* Main Editorial Header */}
           <Header onShareClick={() => setIsShareModalOpen(true)} />
 
-          {/* Search Bar */}
-          <SearchBar 
-            searchQuery={searchQuery} 
-            onSearchChange={setSearchQuery} 
-          />
+          {/* Search & Discovery Bar */}
+          <div className="w-full">
+            <SearchBar 
+              searchQuery={searchQuery} 
+              onSearchChange={setSearchQuery} 
+            />
 
-          {/* Category & Pet Type Filters */}
-          <CategoryFilter
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
-            selectedPetType={selectedPetType}
-            onSelectPetType={setSelectedPetType}
-          />
+            {/* Category & Pet Type Filters */}
+            <CategoryFilter
+              selectedCategory={selectedCategory}
+              onSelectCategory={setSelectedCategory}
+              selectedPetType={selectedPetType}
+              onSelectPetType={setSelectedPetType}
+            />
+          </div>
 
           {/* Section Divider / Label */}
-          <div className="px-4 mb-2.5 flex items-center justify-between">
-            <div className="flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-[#FF8C61] fill-[#FF8C61]" />
-              <h2 className="font-heading font-bold text-xs text-[#2D2D2D] uppercase tracking-wider">
+          <div className="mb-3 sm:mb-4 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-[#FF8C61] fill-[#FF8C61]" />
+              <h2 className="font-heading font-bold text-xs sm:text-sm text-[#2D2D2D] uppercase tracking-wider">
                 {searchQuery 
                   ? `Busca: "${searchQuery}"` 
                   : selectedCategory !== 'all' 
                   ? 'Produtos Selecionados' 
-                  : 'Achados do TikTok'}
+                  : 'Achados em Destaque do TikTok'}
               </h2>
             </div>
-            <span className="text-[11px] font-bold text-[#FF8C61] bg-[#FF8C61]/10 px-2 py-0.5 rounded-full">
-              {filteredProducts.length + (showHero ? 1 : 0)} itens
+            <span className="text-xs font-bold text-[#FF8C61] bg-[#FF8C61]/10 px-2.5 py-1 rounded-full border border-[#FF8C61]/20">
+              {filteredProducts.length + (showHero ? 1 : 0)} itens encontrados
             </span>
           </div>
 
@@ -105,9 +107,9 @@ export default function App() {
             <HeroProduct product={heroProduct} />
           )}
 
-          {/* Products Grid (2 Columns as in Vibrant Palette) */}
+          {/* Responsive Products Grid (2 cols mobile, 3 cols tablet, 4 cols PC) */}
           {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 gap-2.5 px-4 mb-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
               {filteredProducts.map((product, index) => (
                 <ProductCard 
                   key={product.id} 
@@ -121,16 +123,16 @@ export default function App() {
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="py-10 px-4 text-center flex flex-col items-center justify-center space-y-2.5"
+              className="py-16 px-4 text-center flex flex-col items-center justify-center space-y-3 bg-white rounded-3xl border border-[#E8D5C4] my-4"
             >
-              <div className="w-12 h-12 rounded-full bg-[#E8D5C4]/30 flex items-center justify-center text-[#8C847B]">
-                <SearchX className="w-6 h-6 text-[#FF8C61]" />
+              <div className="w-14 h-14 rounded-full bg-[#E8D5C4]/30 flex items-center justify-center text-[#8C847B]">
+                <SearchX className="w-7 h-7 text-[#FF8C61]" />
               </div>
-              <h3 className="font-heading font-bold text-sm text-[#2D2D2D]">
+              <h3 className="font-heading font-bold text-base sm:text-lg text-[#2D2D2D]">
                 Nenhum achado encontrado
               </h3>
-              <p className="text-xs text-[#2D2D2D]/60 max-w-xs">
-                Tente buscar por outro termo ou limpe os filtros para ver tudo.
+              <p className="text-xs sm:text-sm text-[#2D2D2D]/60 max-w-sm">
+                Tente buscar por outro termo ou limpe os filtros para ver toda a nossa curadoria de achados.
               </p>
               <button
                 onClick={() => {
@@ -138,21 +140,12 @@ export default function App() {
                   setSelectedCategory('all');
                   setSelectedPetType('all');
                 }}
-                className="px-3.5 py-1.5 rounded-xl bg-[#2D2D2D] text-white text-xs font-bold hover:bg-black transition-colors"
+                className="px-5 py-2.5 rounded-xl bg-[#2D2D2D] hover:bg-[#FF8C61] text-white text-xs sm:text-sm font-bold transition-all shadow-sm active:scale-95"
               >
-                Limpar Filtros
+                Limpar Todos os Filtros
               </button>
             </motion.div>
           ) : null}
-
-          {/* Floating Navigation Pill Indicator from Theme */}
-          <div className="mt-auto flex justify-center py-3">
-            <div className="bg-[#2D2D2D] px-6 py-2.5 rounded-full flex gap-6 items-center shadow-md">
-              <div className="w-2 h-2 rounded-full bg-[#FF8C61] shadow-xs shadow-[#FF8C61]"></div>
-              <div className="w-2 h-2 rounded-full bg-white/30"></div>
-              <div className="w-2 h-2 rounded-full bg-white/30"></div>
-            </div>
-          </div>
         </div>
 
         {/* Trust, Security & Affiliate Footer */}
@@ -164,12 +157,8 @@ export default function App() {
           onClose={() => setIsShareModalOpen(false)}
         />
       </main>
-
-      {/* Outer Canvas Branding Watermark */}
-      <div className="hidden sm:block absolute bottom-6 right-8 text-[#2D2D2D]/25 font-bold uppercase tracking-[0.3em] text-[10px] pointer-events-none">
-        Puppy Life Hub © 2025
-      </div>
     </div>
   );
 }
+
 
